@@ -5,6 +5,11 @@ clc;
 file = ("3.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
+Ery = cell(1);
+Erx = cell(1);
+cellcount = 1;
+meankeep = [];
+
 [Yci] = invY(Yc, segCount);
 game = 0;
 Ycmed = [];
@@ -19,8 +24,9 @@ for i = 1:segCount-1
         ccy1 = Yci(i);
         ccy1 = median(ccy1{1, 1});
         Ycmed = horzcat(Ycmed, ccy1);
+        meankeep = horzcat(meankeep, ccy1);
         tcount = tcount + 1;
-        if (mod(tcount, 6) == 0)
+        if (mod(tcount, 4) == 0)
             Ystd = std(Ycmed);
             Ycmed = median(Ycmed);
             disp('this is new threshold');
@@ -31,19 +37,24 @@ for i = 1:segCount-1
     if (game == 1) % dont know how to still run if it still in the threshold
         ccy2 = Yci(i);
         ccy2 = mean(ccy2{1, 1});
-        if (ccy2 >= Ycmed - (2*Ystd)) && (ccy2 <= Ycmed + (2*Ystd))
+        if (ccy2 >= Ycmed - (3*Ystd)) && (ccy2 <= Ycmed + (3*Ystd))
             disp('stilll in this game !!')
-        elseif (ccy2 > Ycmed + (2*Ystd)) || (ccy2 < Ycmed - (2*Ystd))
+            meankeep = horzcat(meankeep, ccy2);
+        elseif (ccy2 > Ycmed + (3*Ystd)) || (ccy2 < Ycmed - (3*Ystd))
         % now I know let imagine
         % what if it enter the new line and its like %6 = 5
         % then the next line would be set as the new threshold
         % so I need to trap it first
             disp('new lineeee ???')
             disp(Ycmed)
+            cellcount = cellcount + 1;
+            Erx(1, i) = Xc(i);
+            Ery(1, i) = Yci(i);
             linecount = linecount + 1;
+            meankeep = horzcat(meankeep, ccy2);
             Ycmed = [];
             game = 0;
-            pause(4)
+            %pause(4)
         end
     end
 end
