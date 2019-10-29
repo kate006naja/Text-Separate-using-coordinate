@@ -2,7 +2,7 @@ close all;
 clear all;
 clc;
 
-file = ("3.txt");
+file = ("7.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 Ery = cell(1);
@@ -15,7 +15,7 @@ game = 0;
 Ycmed = [];
 Ystd = [];
 tcount = 1;
-linecount = 1;
+linecount = 0;
 for i = 1:segCount-1
     if (game == 0)
         % new threshold counting

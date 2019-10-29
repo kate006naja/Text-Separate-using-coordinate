@@ -1,5 +1,5 @@
 
-file = ("6.txt");
+file = ("8.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 % This part is plotting.
