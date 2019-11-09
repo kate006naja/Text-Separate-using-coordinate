@@ -7,7 +7,7 @@ clear all;
 clc;
 
 %% open file and store value in cell
-file = ("10.txt");
+file = ("5.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 % inversing Y value in its cell
@@ -43,22 +43,26 @@ sepline = [];
 %miny = My(1, 1);
 
 for i = 2:lx % start from the second value
-    if My(i, 1) - miny >= 0.15
+    
+    % the condition if it still in the same line or next
+    if My(i, 1) - maxy >= 0.3
         newline = 0; % this mean to sep outlier first
         miny = My(i, 1);
     else
-        if My(i, 3) < miny - 0.01  % to see if the max of that value
-                        % is lower than old min
+        if My(i, 3) < miny - 0.01
+            % to see if the max of that value
+            % is lower than old min
             % to check if '.' is at last char
             %Ycstd = std(Ycvalue);
+
             newline = newline + 1;
-            if newline > 3 % if newline is greater than 3 that mean
+            if newline > 2 % if newline is greater than 3 that mean
                            % we are so sure that that is a new line
                 l = l+1;
                 newline = 0; % restart parameter if sure its a new line
-                miny = My(i-3, 1);
-                LineNo(i-3: i, 1) = l;
-                sepline = horzcat(sepline, i-3);
+                miny = My(i-2, 1);
+                LineNo(i-2: i, 1) = l;
+                sepline = horzcat(sepline, i-2);
             else
                 LineNo(i, 1) = l;
             end
@@ -106,11 +110,12 @@ for i = 1:segCount-1 % Plotting in every segment
    
    plot(X, Y); % Plot each segment ( each Char )
    % time pause per each loop
-   pause(0.001);
+   pause(0.0001);
    if i ~= 0, hold on; end
 end
 % still some error in file 3(which have many space)
 % and file 5 which have too large space
+figure(2);
 for i = sepline
     xxx = Xc(i);
     yyy = Yci(i);
