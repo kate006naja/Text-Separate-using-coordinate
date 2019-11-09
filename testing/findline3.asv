@@ -73,9 +73,6 @@ for i = 2:lx % start from the second value
             Ycvalue= horzcat(Ycvalue, ccy{1, 1});
         end
     end
-    if i == lx(end)
-        sepline = horzcat(sepline, i);
-    end
 end
 %for i = sepline
 %    xxx = Xc(i);
