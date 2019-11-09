@@ -30,7 +30,7 @@ for i = 1:length(Yci)
 end
 
 LineNo = zeros(lx, 1);
-l = 0;
+l = 0; % count each line
 newline = 0;
 medy = My(1, 2);
 miny = My(1, 1); % act as a first threshold (min)
@@ -71,14 +71,18 @@ for i = 2:lx % start from the second value
             LineNo(i, 1) = l; % no new line and skip it
             ccy = Yci(i);
             Ycvalue= horzcat(Ycvalue, ccy{1, 1});
+            %if i == lx(end)
+            %    sepline = horzcat(sepline, i)
+            %end
         end
     end
-end
-%for i = sepline
-%    xxx = Xc(i);
-%    yyy = Yci(i);
-%    plot(xxx{1, 1}, yyy{1, 1}, '*');
-%end
+    %if i == lx(end)
+    %    sepline = horzcat(sepline, i);
+    %end
+end; sepline = horzcat(sepline, lx(end)) % incaase of the last segment
+l = 
+
+
 corY = [];
 corX = [];
 for i = 1:segCount-1
@@ -93,6 +97,7 @@ end
 figure(1);
 plot(corX, corY, '.');
 plot(corY, '.-');
+
 %%
 % This part is plotting.
 figure(2);

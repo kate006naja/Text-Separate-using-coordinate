@@ -4,7 +4,6 @@
 SegX = cell(1);
 SegY = cell(l);
 SegZ = cell(l);
-close all;
 %for i = 0:l
     %for j = 
     %disp(i)
@@ -22,23 +21,16 @@ for i = 0:l
     elseif i >= l(end)-1
         if i == l(end)-1
             for j = sepline(i):sepline(i+1)
-                SegX{i+1, j-(sepline(i)-1)} = Xc{j};
-                SegY{i+1, j-(sepline(i)-1)} = Yci{j};
-                SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
-
-                % last char case
-                if j == sepline(i+1)
-                    SegX{i+1, j-(sepline(i)-1)} = Xc{j};
-                    SegY{i+1, j-(sepline(i)-1)} = Yci{j};
-                    SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
-                end
+                SegX{i+1, j-(sepline(i)-1)} = Xc(j);
+                SegY{i+1, j-(sepline(i)-1)} = Yci(j);
+                SegZ{i+1, j-(sepline(i)-1)} = Zc(j);
             end
         elseif i == l(end)
             break
         end
     % Normal Case    
     else
-        for j = sepline(i):sepline(i+1)
+        for j = sepline(i):sepline(i+1)-1
             SegX{i+1, j-(sepline(i)-1)} = Xc{j};
             SegY{i+1, j-(sepline(i)-1)} = Yci{j};
             SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
@@ -62,15 +54,14 @@ end
 
 % plot last line
 figure(4);
-%a214 = Xc(214); b214 = Yci(214);
-%plot(a214{1, 1}, b214{1, 1});
-for i = 1:17
-    t = SegX(8, i);
-    X = t{1, 1};
-    
-    t = SegY(8, i);
-    Y = t{1, 1};
-    plot(X, Y);
-    pause(0.05)
-    if i ~= 0; hold on; end
-end
+
+%for i = 1:16
+%    t = SegX(8, i);
+%    X = t{1, 1};
+%    
+%    t = SegY(8, i);
+%    Y = t{1, 1};
+%    plot(X, Y);
+%    pause(0.05)
+%    if i ~= 0; hold on; end
+%end
