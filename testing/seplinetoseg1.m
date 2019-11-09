@@ -25,13 +25,6 @@ for i = 0:l
                 SegX{i+1, j-(sepline(i)-1)} = Xc{j};
                 SegY{i+1, j-(sepline(i)-1)} = Yci{j};
                 SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
-
-                % last char case
-                if j == sepline(i+1)
-                    SegX{i+1, j-(sepline(i)-1)} = Xc{j};
-                    SegY{i+1, j-(sepline(i)-1)} = Yci{j};
-                    SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
-                end
             end
         elseif i == l(end)
             break
@@ -46,6 +39,7 @@ for i = 0:l
     end
 end
 
+%% testing by plotting
 % test plot first and last line
 % plot first line
 figure(3);
