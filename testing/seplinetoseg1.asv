@@ -51,10 +51,18 @@ for i = 1:35
     plot(X, Y);
     pause(0.05)
     if i ~= 0; hold on; end
-    plot(min(X), median(Y), '*');
-    plot(max(X), median(Y), '*');
 end
-
+for i = 1:35
+    % First row here mean this char is in the first line
+    t = SegX(1, i);
+    X = t{1, 1};
+    t = SegY(1, i);
+    Y = t{1, 1};
+    plot(X, Y);
+    pause(0.05)
+    plot(min(X), max(X), '*')
+    if i ~= 0; hold on; end
+end
 
 % plot last line
 figure(4);
@@ -67,6 +75,4 @@ for i = 1:17
     plot(X, Y);
     pause(0.05)
     if i ~= 0; hold on; end
-    plot(min(X), median(Y), '*');
-    plot(max(X), median(Y), '*');
 end
