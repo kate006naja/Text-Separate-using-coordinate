@@ -51,8 +51,8 @@ for i = 1:35
     plot(X, Y);
     pause(0.05)
     if i ~= 0; hold on; end
-    plot(min(X), median(Y), '*');
-    plot(max(X), median(Y), '*');
+    %plot(min(X), median(Y), '*');
+    %plot(max(X), median(Y), '*');
 end
 
 
