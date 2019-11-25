@@ -67,6 +67,7 @@ for i = 1:17
     plot(X, Y);
     pause(0.05)
     if i ~= 0; hold on; end
-    plot(min(X), median(Y), '*');
-    plot(max(X), median(Y), '*');
+    BoxX = [min(X), max(X)];
+    BoxY = [min(Y), max(Y)];
+    plot(BoxX, BoxY, '-');
 end

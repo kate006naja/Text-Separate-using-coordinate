@@ -7,7 +7,7 @@ clear all;
 clc;
 
 %% open file and store value in cell
-file = ("5.txt");
+file = ("9.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 % inversing Y value in its cell
@@ -18,6 +18,7 @@ file = ("5.txt");
 lx = length(Xc); % length of x var (can be use for y too)
 Mx = zeros(lx, 3);
 My = zeros(lx, 3); % creates lx amount of row and 3 columns
+j=0;
 
 for i = 1:length(Yci)
    Mx(i,1) = min(Xc{i});
@@ -27,8 +28,28 @@ for i = 1:length(Yci)
    My(i,1) = min(Yci{i});
    My(i,2) = median(Yci{i});
    My(i,3) = max(Yci{i});
+   if(length(Xc{i})) >= 15
+       j = j+1;
+       Mx2(j, 1) = min(Xc{i});
+       Mx2(j, 2) = median(Xc{i});
+       Mx2(j, 3) = max(Xc{i});
+       Mx2(j, 4) = i;
+       
+       My2(j, 1) = min(Yci{i});
+       My2(j, 2) = median(Yci{i});
+       My2(j, 3) = max(Yci{i});
+       My2(j, 4) = i;
+         
+   end
 end
-
+%%
+Mx0 = Mx;
+My0 = My;
+Mx = Mx2;
+My = My2;
+lx0 = lx;
+lx = j;
+%%
 LineNo = zeros(lx, 1);
 l = 0; % count each line
 newline = 0;
@@ -100,10 +121,13 @@ figure(1);
 plot(corX, corY, '.');
 plot(corY, '.-');
 
-%%
-% This part is plotting.
+%% Changing index of plotting point
+segCount = lx;
+
+%% This part is plotting.
 figure(2);
-for i = 1:segCount-1 % Plotting in every segment
+for k = 1:segCount-1 % Plotting in every segment
+    i = Mx(k, 4);
    t = Xc(i); % Store each segment of 'x' into each column of cell
    X = t{1,1};
    
@@ -114,17 +138,37 @@ for i = 1:segCount-1 % Plotting in every segment
    
    t = Zc(i); % Store each segment of 'z' into each column of cell
    Z = t{1,1}; % inverse Y first
-   
+   k
    plot(X, Y); % Plot each segment ( each Char )
    % time pause per each loop
    pause(0.0001);
-   if i ~= 0, hold on; end
+   if k ~= 0, hold on; end
 end
 % still some error in file 3(which have many space)
 % and file 5 which have too large space
-figure(2);
-for i = sepline
+% figure(2);
+% for k = sepline
+%     i = Mx(k, 4);
+%     xxx = Xc(i);
+%     yyy = Yci(i);
+%     plot(xxx{1, 1}, yyy{1, 1}, '*');
+% end
+%% testing error
+figure(2)
+for k = 103
+    i = Mx(k, 4);
     xxx = Xc(i);
     yyy = Yci(i);
     plot(xxx{1, 1}, yyy{1, 1}, '*');
 end
+
+
+%%
+figure();
+histX = [];
+for i = 1:lx
+    if numel(Xc{i}) >= 15
+        histX = horzcat(histX, numel(Xc{i}))
+    end
+end
+hist(histX, 30);

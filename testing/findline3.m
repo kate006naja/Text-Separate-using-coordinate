@@ -7,7 +7,7 @@ clear all;
 clc;
 
 %% open file and store value in cell
-file = ("5.txt");
+file = ("5.txt"); % 9 is a problem % 5 is good
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 % inversing Y value in its cell
@@ -128,3 +128,12 @@ for i = sepline
     yyy = Yci(i);
     plot(xxx{1, 1}, yyy{1, 1}, '*');
 end
+
+%%
+% histX = [];
+% for i = 1:lx
+%     if numel(Xc{i})
+%     histX = horzcat(histX, numel(Xc{i}));
+% end
+% histX > 15;
+% hist(histX, 30);

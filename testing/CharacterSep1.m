@@ -29,10 +29,10 @@ for i = 2:35 % From 35 segment
         minX = Mx1(i, 1);
         maxX = Mx1(i, 3);
         % if it vowel or tone done it here
-    elseif Mx1(i, 2) < maxX
+    elseif Mx1(i, 1) < maxX
         votoX = horzcat(votoX, SegX1(i));
         votoY = horzcat(votoY, SegY1(i));
-        if Mx1(i+1, 2) < maxX
+        if Mx1(i+1, 1) < maxX
             votoX = horzcat(votoX, SegX1(i+1));
             votoY = horzcat(votoY, SegY1(i+1));
         end   
@@ -53,5 +53,25 @@ for i = 1:numel(votoX)
     %plot(min(X), median(Y), '*');
     %plot(max(X), median(Y), '*');
 end
+for i = 25
+    t = SegX(1, i);
+    X = t{1, 1};
+    
+    t = SegY(1, i);
+    Y = t{1, 1};
+    plot(X, Y, 'o');
+end
 
+for i = 1:35
+    t = SegX(1, i);
+    X = t{1, 1};
+    
+    t = SegY(1, i);
+    Y = t{1, 1};
+    plot(X, Y);
+    pause(0.05)
+    if i ~= 0; hold on; end
+    %plot(min(X), median(Y), '*');
+    %plot(max(X), median(Y), '*');
+end
 
