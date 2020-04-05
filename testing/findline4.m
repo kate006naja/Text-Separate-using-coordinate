@@ -7,7 +7,7 @@ clear all;
 clc;
 
 %% open file and store value in cell
-file = ("9.txt");
+file = ("5.txt");
 [Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
 
 % inversing Y value in its cell
@@ -100,7 +100,7 @@ for i = 2:lx % start from the second Y value
     %if i == lx(end)
     %    sepline = horzcat(sepline, i);
     %end
-end; sepline = horzcat(sepline, lx(end)) % incaase of the last segment
+end; sepline = horzcat(sepline, lx(end)); % incaase of the last segment
 
 % in last line case (which I addded 1 line)
 l = l+1;

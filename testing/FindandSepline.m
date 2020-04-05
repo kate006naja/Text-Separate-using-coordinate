@@ -1,2 +1,0 @@
-%% FindandSepline.m
-function []

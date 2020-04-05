@@ -1,19 +1,10 @@
-% findline3.m 
+%% writing line segmenting function
+% LineFind.m 
 % using min and max as a threshold and modifying threshold
 % in case of the dot value
 
-close all;
-clear all;
-clc;
-
-%% open file and store value in cell
-file = ("4.txt"); % 9 is a problem % 5 is good
-[Xc, Yc, Zc, segCount, txt_list] = readtfile(file);
-
-% inversing Y value in its cell
-[Yci] = invY(Yc, segCount);
-
-%% finding min and max in y
+function [sepline, l] = LineFind(Xc, Yci)
+% find min and max of y
 
 lx = length(Xc); % length of x var (can be use for y too)
 Mx = zeros(lx, 3);
@@ -32,11 +23,9 @@ end
 LineNo = zeros(lx, 1);
 l = 0; % count each line
 newline = 0;
-medy = My(1, 2);
 miny = My(1, 1); % act as a first threshold (min)
 maxy = My(1, 3); % act as a first threshold (max)
 Ycvalue = [];
-Ystd = 0;
 
 sepline = [];
 % maxy = My(1, 3);
@@ -53,8 +42,7 @@ for i = 2:lx % start from the second Y value
             % to see if the max of that value
             % is lower than old min
             % to check if '.' is at last char
-            %Ycstd = std(Ycvalue);
-
+            %Ycstd = std(Ycvalue);  
             newline = newline + 1;
             if newline > 2 % if newline is greater than 3 that mean
                            % we are so sure that that is a new line
@@ -71,69 +59,11 @@ for i = 2:lx % start from the second Y value
             LineNo(i, 1) = l; % no new line and skip it
             ccy = Yci(i);
             Ycvalue= horzcat(Ycvalue, ccy{1, 1});
-            %if i == lx(end)
-            %    sepline = horzcat(sepline, i)
-            %end
         end
     end
-    %if i == lx(end)
-    %    sepline = horzcat(sepline, i);
-    %end
-end; sepline = horzcat(sepline, lx(end)) % incaase of the last segment
+end
+sepline = horzcat(sepline, lx(end)) % incaase of the last segment
 
 % in last line case (which I addded 1 line)
 l = l+1;
 
-
-corY = [];
-corX = [];
-for i = 1:segCount-1
-    t = Yci(i);
-    Y = t{1 ,1};
-    %plot(Y);
-    corY = horzcat(corY, Y);
-    t = Xc(i);
-    X = t{1, 1};
-    corX = horzcat(corX, X);
-end
-figure(1);
-plot(corX, corY, '.');
-plot(corY, '.-');
-
-%%
-% This part is plotting.
-figure(2);
-for i = 1:segCount-1 % Plotting in every segment
-   t = Xc(i); % Store each segment of 'x' into each column of cell
-   X = t{1,1};
-   
-   t = Yci(i); % Store each segment of 'y' into each column of cell
-   Y = t{1,1}; 
-   %Y = 1-Y;
-   % wait for me to fix 1-Y in main code
-   
-   t = Zc(i); % Store each segment of 'z' into each column of cell
-   Z = t{1,1}; % inverse Y first
-   
-   plot(X, Y); % Plot each segment ( each Char )
-   % time pause per each loop
-   pause(0.0001);
-   if i ~= 0, hold on; end
-end
-% still some error in file 3(which have many space)
-% and file 5 which have too large space
-figure(2);
-for i = sepline
-    xxx = Xc(i);
-    yyy = Yci(i);
-    plot(xxx{1, 1}, yyy{1, 1}, '*');
-end
-
-%%
-% histX = [];
-% for i = 1:lx
-%     if numel(Xc{i})
-%     histX = horzcat(histX, numel(Xc{i}));
-% end
-% histX > 15;
-% hist(histX, 30);

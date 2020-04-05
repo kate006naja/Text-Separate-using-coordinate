@@ -1,7 +1,10 @@
-%% seplinetoseg1.m
+%% Segment each line into each cell rows
+% linesegment.m
 % this is for save each line into cell rows
 % by seperating each variables(X, Y and Z)
 % I'm testing this by just using file "6.txt"
+
+function [SegX, SegY, SegZ] = linesegment(l, sepline, Xc, Yci, Zc)
 SegX = cell(1);
 SegY = cell(l);
 SegZ = cell(l);
@@ -36,39 +39,4 @@ for i = 0:l
             SegZ{i+1, j-(sepline(i)-1)} = Zc{j};
         end
     end
-end
-
-%% testing by plotting
-% test plot first and last line
-
-% plot first line
-figure(3);
-for i = 1:35
-    t = SegX(1, i);
-    X = t{1, 1};
-    
-    t = SegY(1, i);
-    Y = t{1, 1};
-    plot(X, Y);
-    pause(0.05)
-    if i ~= 0; hold on; end
-    %plot(min(X), median(Y), '*');
-    %plot(max(X), median(Y), '*');
-end
-
-
-% plot last line
-figure(4);
-for i = 1:17
-    t = SegX(6, i);
-    X = t{1, 1};
-    
-    t = SegY(6, i);
-    Y = t{1, 1};
-    plot(X, Y);
-    pause(0.05)
-    if i ~= 0; hold on; end
-    %BoxX = [min(X), max(X)];
-    %BoxY = [min(Y), max(Y)];
-    %plot(BoxX, BoxY, '-');
 end
